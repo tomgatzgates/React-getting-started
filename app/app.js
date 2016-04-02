@@ -16,24 +16,33 @@ const counter = (state = 0, action) => {
 };
 
 const store = createStore(counter);
-ReactDOM.render(
-  <span>
-    <Greeting name="World" />
-    <Counter
-      value={store.getState()}
-      onIncrement={
-        () => {
-          store.dispatch({ type: 'INCREMENT' });
-          console.log('incre', store.getState());
+
+const render = () => {
+  ReactDOM.render(
+    <span>
+      <Greeting name="World" />
+      <Counter
+        value={store.getState()}
+        onIncrement={
+          () => {
+            store.dispatch({ type: 'INCREMENT' });
+            console.log('incre', store.getState());
+          }
         }
-      }
-      onDecrement={
-        () => {
-          store.dispatch({ type: 'DECREMENT' });
-          console.log('decr', store.getState());
+        onDecrement={
+          () => {
+            store.dispatch({ type: 'DECREMENT' });
+            console.log('decr', store.getState());
+          }
         }
-      }
-    />
-  </span>,
-  document.getElementById('app')
+      />
+    </span>,
+    document.getElementById('app')
+  );
+};
+
+store.subscribe(() =>
+  render()
 );
+
+render();
